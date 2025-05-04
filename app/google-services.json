@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "776202816048",
+    "project_id": "fynd-39a51",
+    "storage_bucket": "fynd-39a51.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:776202816048:android:27b6f913dec33e3672bbf5",
+        "android_client_info": {
+          "package_name": "com.fyndapp.fynd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "776202816048-k7agamjc99q24r4cr0l6ud5lfnvkl484.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fyndapp.fynd",
+            "certificate_hash": "e3e46b6ad914c5d958d6d43190126cdcb1750a34"
+          }
+        },
+        {
+          "client_id": "776202816048-irv5eoip2at1u9ttu3flcta7giqhaenb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHk7o_JVUyFGa6sLKul0h7ZLJ5AkmYX7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "776202816048-irv5eoip2at1u9ttu3flcta7giqhaenb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
