@@ -1,14 +1,23 @@
 package com.fyndapp.fynd.pages
 
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.fyndapp.BottomNavigationBar
 import com.fyndapp.fynd.AuthViewModel
 import com.fyndapp.fynd.other.Screens
 
@@ -17,7 +26,6 @@ sealed class BottomNavItem(val title: String, val icon: ImageVector, val screen:
     object Profile : BottomNavItem("Profile", Icons.Default.Person, Screens.Profile)
     object Settings : BottomNavItem("Settings", Icons.Default.Settings, Screens.AccountSettings)
     object ContactUs : BottomNavItem("Contact", Icons.Default.Phone, Screens.ContactUs)
-    object FAQ : BottomNavItem("FAQ", Icons.Default.Info, Screens.FAQ)
 }
 
 @Composable
@@ -26,34 +34,9 @@ fun HomePage(
     navController: NavController,
     authViewModel: AuthViewModel
 ) {
-    var selectedItem by remember { mutableStateOf(0) }
-    val items = listOf(
-        BottomNavItem.Home,
-        BottomNavItem.Profile,
-        BottomNavItem.Settings,
-        BottomNavItem.ContactUs,
-        BottomNavItem.FAQ
-    )
-
     Scaffold(
         bottomBar = {
-            NavigationBar(tonalElevation = 8.dp) {
-                items.forEachIndexed { index, item ->
-                    NavigationBarItem(
-                        selected = selectedItem == index,
-                        onClick = {
-                            selectedItem = index
-                            navController.navigate(item.screen.route)
-                        },
-                        icon = {
-                            Icon(imageVector = item.icon, contentDescription = item.title)
-                        },
-                        label = {
-                            Text(text = item.title)
-                        }
-                    )
-                }
-            }
+            BottomNavigationBar(navController = navController, currentScreen = Screens.Home)
         }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {

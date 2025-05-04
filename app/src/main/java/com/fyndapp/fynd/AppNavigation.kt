@@ -9,7 +9,6 @@ import androidx.navigation.compose.rememberNavController
 import com.fyndapp.fynd.other.Screens
 import com.fyndapp.fynd.pages.AccountSettings
 import com.fyndapp.fynd.pages.ContactUs
-import com.fyndapp.fynd.pages.FAQ
 import com.fyndapp.fynd.pages.HomePage
 import com.fyndapp.fynd.pages.Profile
 import com.fyndapp.fynd.ui.SplashScreen
@@ -50,10 +49,6 @@ fun AppNavigation(
         }
         composable(Screens.ContactUs.route) {
             ContactUs(modifier,navController,authViewModel)
-        }
-
-        composable(Screens.FAQ.route) {
-            FAQ(modifier, navController, authViewModel)
         }
     }
 }
