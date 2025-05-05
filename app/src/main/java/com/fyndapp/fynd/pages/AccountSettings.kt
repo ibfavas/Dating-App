@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.fyndapp.BottomNavigationBar
+import com.fyndapp.fynd.BottomNavigationBar
 import com.fyndapp.fynd.AuthViewModel
 import com.fyndapp.fynd.other.Screens
 

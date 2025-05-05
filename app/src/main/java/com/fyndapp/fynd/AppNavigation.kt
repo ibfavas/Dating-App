@@ -1,6 +1,8 @@
 package com.fyndapp.fynd
 
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
@@ -13,6 +15,7 @@ import com.fyndapp.fynd.pages.HomePage
 import com.fyndapp.fynd.pages.Profile
 import com.fyndapp.fynd.ui.SplashScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavigation(
     modifier: Modifier = Modifier,

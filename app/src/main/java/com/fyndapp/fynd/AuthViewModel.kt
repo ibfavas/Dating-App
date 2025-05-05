@@ -2,6 +2,8 @@ package com.fyndapp.fynd
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -19,6 +21,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import kotlin.random.Random
 
 data class AuthState(
     val user: FirebaseUser? = null,
@@ -44,8 +47,6 @@ class AuthViewModel : ViewModel() {
             }
         }
     }
-
-
 
     fun getGoogleSignInClient(context: Context): GoogleSignInClient {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -82,9 +83,12 @@ class AuthViewModel : ViewModel() {
                     val userData = hashMapOf(
                         "name" to user.displayName,
                         "email" to user.email,
-                        "gender" to null
+                        "gender" to null,
+                        "avatar" to "default" // Default avatar initially
                     )
                     db.collection("users").document(user.uid).set(userData).await()
+                    // Assign a random avatar
+                    assignRandomAvatar(user.uid, null)
                 }
                 _genderSelectionRequired.value = userDoc.getString("gender") == null
                 _authState.value = AuthState(user = user)
@@ -94,6 +98,20 @@ class AuthViewModel : ViewModel() {
         }
     }
 
+    private suspend fun assignRandomAvatar(userId: String, gender: String?) {
+        val avatar = when (gender) {
+            "Male" -> listOf("male1", "male2").random()
+            "Female" -> listOf("female1", "female2").random()
+            else -> listOf("male1", "male2","male3","male4","male5","male6", "female1", "female2","female3","female4","female5","female6", "default").random()
+        }
+
+        db.collection("users")
+            .document(userId)
+            .update("avatar", avatar)
+            .await()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun checkGenderSelection(userId: String) {
         db.collection("users").document(userId).get()
             .addOnSuccessListener { document ->
@@ -111,13 +129,44 @@ class AuthViewModel : ViewModel() {
         gender: String
     ): Boolean {
         return try {
-            val userData = hashMapOf(
+            // Create a map with the updated fields
+            val updates = hashMapOf<String, Any>(
                 "name" to name,
                 "dob" to dob,
                 "gender" to gender
             )
-            db.collection("users").document(userId).set(userData).await()
+
+            // Perform the update
+            db.collection("users").document(userId).update(updates).await()
+
+            // Update avatar based on selected gender
+            assignRandomAvatar(userId, gender)
+
             _genderSelectionRequired.value = false
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun updateUserLanguage(userId: String, language: String): Boolean {
+        return try {
+            db.collection("users")
+                .document(userId)
+                .update("language", language)
+                .await()
+            true
+        } catch (e: Exception) {
+            false
+        }
+    }
+
+    suspend fun updateUserAvatar(userId: String, avatar: String): Boolean {
+        return try {
+            db.collection("users")
+                .document(userId)
+                .update("avatar", avatar)
+                .await()
             true
         } catch (e: Exception) {
             false

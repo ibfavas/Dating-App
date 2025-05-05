@@ -1,4 +1,4 @@
-package com.fyndapp
+package com.fyndapp.fynd
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
@@ -6,10 +6,12 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -34,14 +36,25 @@ fun BottomNavigationBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(75.dp)
-            .background(Color(0xFFF9E2FF))
+            .padding(horizontal = 24.dp, vertical = 12.dp)
+            .height(64.dp)
+            .shadow(
+                elevation = 10.dp,
+                shape = RoundedCornerShape(50),
+                ambientColor = Color(0x33000000),
+                spotColor = Color(0x33C490D7)
+            )
+            .background(
+                color = Color(0xFF000000),
+                shape = RoundedCornerShape(50)
+            ),
+        contentAlignment = Alignment.Center
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
-            horizontalArrangement = Arrangement.SpaceEvenly,
+                .padding(horizontal = 28.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             items.forEachIndexed { index, item ->
@@ -49,11 +62,10 @@ fun BottomNavigationBar(
                 Box(
                     contentAlignment = Alignment.Center,
                     modifier = Modifier
-                        .size(64.dp)
+                        .size(48.dp)
                         .noRippleClickable {
                             if (!isSelected) {
                                 navController.navigate(item.screen.route) {
-                                    // This ensures smooth transition between screens
                                     popUpTo(navController.graph.startDestinationId) {
                                         saveState = true
                                     }
@@ -64,18 +76,18 @@ fun BottomNavigationBar(
                         }
                 ) {
                     Box(
-                        contentAlignment = Alignment.Center,
                         modifier = Modifier
-                            .size(48.dp)
+                            .size(40.dp)
                             .background(
-                                if (isSelected) Color(0xFF9C27B0) else Color.Transparent,
+                                if (isSelected) Color.White.copy(alpha = 0.2f) else Color.Transparent,
                                 CircleShape
-                            )
+                            ),
+                        contentAlignment = Alignment.Center
                     ) {
                         Icon(
                             imageVector = item.icon,
                             contentDescription = item.title,
-                            tint = if (isSelected) Color.White else Color(0xFF9C27B0),
+                            tint = if (isSelected) Color.White else Color(0xFFEDE7F6),
                             modifier = Modifier.size(24.dp)
                         )
                     }
@@ -85,7 +97,6 @@ fun BottomNavigationBar(
     }
 }
 
-// Helper function to remove ripple effect
 @SuppressLint("SuspiciousModifierThen")
 @Composable
 private inline fun Modifier.noRippleClickable(crossinline onClick: () -> Unit): Modifier =
