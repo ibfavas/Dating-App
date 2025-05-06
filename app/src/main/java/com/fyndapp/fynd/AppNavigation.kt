@@ -48,7 +48,7 @@ fun AppNavigation(
         }
 
         composable(Screens.AccountSettings.route) {
-            AccountSettings(modifier, navController, authViewModel)
+            AccountSettings(modifier, navController, authViewModel, themeViewModel)
         }
         composable(Screens.ContactUs.route) {
             ContactUs(modifier,navController,authViewModel)

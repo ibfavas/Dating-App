@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import kotlin.random.Random
 
 data class AuthState(
     val user: FirebaseUser? = null,
@@ -29,6 +28,7 @@ data class AuthState(
     val error: String? = null
 )
 
+@RequiresApi(Build.VERSION_CODES.O)
 class AuthViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance()
     private val db = Firebase.firestore
@@ -100,8 +100,8 @@ class AuthViewModel : ViewModel() {
 
     private suspend fun assignRandomAvatar(userId: String, gender: String?) {
         val avatar = when (gender) {
-            "Male" -> listOf("male1", "male2").random()
-            "Female" -> listOf("female1", "female2").random()
+            "Male" -> listOf("male1", "male2","male3","male4","male5","male6").random()
+            "Female" -> listOf("female1", "female2","female3","female4","female5","female6").random()
             else -> listOf("male1", "male2","male3","male4","male5","male6", "female1", "female2","female3","female4","female5","female6", "default").random()
         }
 

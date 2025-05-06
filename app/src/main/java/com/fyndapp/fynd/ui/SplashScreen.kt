@@ -1,6 +1,8 @@
 package com.fyndapp.fynd.ui
 
+import android.os.Build
 import android.view.animation.OvershootInterpolator
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
@@ -24,6 +26,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,

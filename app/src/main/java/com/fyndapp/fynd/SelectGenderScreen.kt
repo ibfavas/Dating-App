@@ -24,6 +24,7 @@ import com.fyndapp.fynd.other.Screens
 import kotlinx.coroutines.launch
 import java.util.*
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun SelectGenderScreen(
     modifier: Modifier = Modifier,
