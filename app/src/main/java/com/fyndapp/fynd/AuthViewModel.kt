@@ -100,15 +100,29 @@ class AuthViewModel : ViewModel() {
 
     private suspend fun assignRandomAvatar(userId: String, gender: String?) {
         val avatar = when (gender) {
-            "Male" -> listOf("male1", "male2","male3","male4","male5","male6").random()
-            "Female" -> listOf("female1", "female2","female3","female4","female5","female6").random()
-            else -> listOf("male1", "male2","male3","male4","male5","male6", "female1", "female2","female3","female4","female5","female6", "default").random()
+            "Male" -> listOf("male1", "male2", "male3", "male4", "male5", "male6").random()
+            "Female" -> listOf("female1", "female2", "female3", "female4", "female5", "female6").random()
+            else -> listOf("male1", "male2", "male3", "male4", "male5", "male6", "female1", "female2", "female3", "female4", "female5", "female6", "default").random()
         }
 
         db.collection("users")
             .document(userId)
             .update("avatar", avatar)
             .await()
+    }
+
+    suspend fun deleteAccount(onSuccess: () -> Unit, onFailure: (String) -> Unit) {
+        val user = auth.currentUser
+        if (user != null) {
+            try {
+                user.delete().await()
+                onSuccess()
+            } catch (e: Exception) {
+                onFailure(e.localizedMessage ?: "Error deleting account")
+            }
+        } else {
+            onFailure("No user is logged in")
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -129,19 +143,13 @@ class AuthViewModel : ViewModel() {
         gender: String
     ): Boolean {
         return try {
-            // Create a map with the updated fields
             val updates = hashMapOf<String, Any>(
                 "name" to name,
                 "dob" to dob,
                 "gender" to gender
             )
-
-            // Perform the update
             db.collection("users").document(userId).update(updates).await()
-
-            // Update avatar based on selected gender
             assignRandomAvatar(userId, gender)
-
             _genderSelectionRequired.value = false
             true
         } catch (e: Exception) {

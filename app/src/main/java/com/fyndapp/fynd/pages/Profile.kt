@@ -147,7 +147,7 @@ fun Profile(
                         .size(100.dp)
                         .clip(CircleShape)
                         .background(Color.LightGray)
-                        .border(2.dp, Color(0xFF7F48D7), CircleShape),
+                        .border(2.dp, color = MaterialTheme.colorScheme.primary, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
@@ -164,7 +164,7 @@ fun Profile(
                     text = "My Profile",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    color = MaterialTheme.colorScheme.onBackground
                 )
             }
 
@@ -173,7 +173,7 @@ fun Profile(
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Name", color = Color.Black) },
+                label = { Text("Name", color = MaterialTheme.colorScheme.onBackground) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
@@ -183,11 +183,11 @@ fun Profile(
                 },
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedLabelColor = Color(0xFF7F48D7),
+                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                    focusedLabelColor = MaterialTheme.colorScheme.primary,
                     unfocusedLabelColor = Color.Gray
                 )
             )
@@ -195,7 +195,7 @@ fun Profile(
             OutlinedTextField(
                 value = user?.email ?: "",
                 onValueChange = {},
-                label = { Text("Email", color = Color.Black) },
+                label = { Text("Email", color = MaterialTheme.colorScheme.onBackground) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
@@ -205,11 +205,11 @@ fun Profile(
                 },
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedLabelColor = Color(0xFF7F48D7),
+                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                    focusedLabelColor = MaterialTheme.colorScheme.primary,
                     unfocusedLabelColor = Color.Gray
                 )
             )
@@ -224,14 +224,14 @@ fun Profile(
                     Icons.Default.Face,
                     contentDescription = "Gender",
                     modifier = Modifier.padding(end = 8.dp),
-                    tint = Color(0xFF7F48D7)
+                    tint = MaterialTheme.colorScheme.primary
                 )
 
                 Text(
                     text = "Gender",
                     modifier = Modifier.weight(1f),
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Color.Black
+                    color = MaterialTheme.colorScheme.onBackground
                 )
 
                 Row {
@@ -239,28 +239,28 @@ fun Profile(
                         selected = gender == "Male",
                         onClick = { gender = "Male" },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color(0xFF7F48D7),
+                            selectedColor = MaterialTheme.colorScheme.primary,
                             unselectedColor = Color.Gray
                         )
                     )
-                    Text("Male", modifier = Modifier.padding(end = 16.dp, start = 4.dp), color = Color.Black)
+                    Text("Male", modifier = Modifier.padding(end = 16.dp, start = 4.dp), color = MaterialTheme.colorScheme.onBackground)
 
                     RadioButton(
                         selected = gender == "Female",
                         onClick = { gender = "Female" },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = Color(0xFF7F48D7),
+                            selectedColor = MaterialTheme.colorScheme.primary,
                             unselectedColor = Color.Gray
                         )
                     )
-                    Text("Female", modifier = Modifier.padding(start = 4.dp), color = Color.Black)
+                    Text("Female", modifier = Modifier.padding(start = 4.dp), color = MaterialTheme.colorScheme.onBackground)
                 }
             }
 
             OutlinedTextField(
                 value = dob,
                 onValueChange = { dob = it },
-                label = { Text("Date of Birth", color = Color.Black) },
+                label = { Text("Date of Birth", color = MaterialTheme.colorScheme.onBackground) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 8.dp),
@@ -270,11 +270,11 @@ fun Profile(
                 },
                 shape = RoundedCornerShape(12.dp),
                 colors = TextFieldDefaults.colors(
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black,
-                    focusedContainerColor = Color.White,
-                    unfocusedContainerColor = Color.White,
-                    focusedLabelColor = Color(0xFF7F48D7),
+                    focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                    focusedContainerColor = MaterialTheme.colorScheme.background,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                    focusedLabelColor = MaterialTheme.colorScheme.primary,
                     unfocusedLabelColor = Color.Gray
                 )
             )
@@ -285,7 +285,7 @@ fun Profile(
                 OutlinedTextField(
                     value = selectedLanguage,
                     onValueChange = {},
-                    label = { Text("Language", color = Color.Black) },
+                    label = { Text("Language", color = MaterialTheme.colorScheme.onBackground) },
                     modifier = Modifier.fillMaxWidth(),
                     readOnly = true,
                     leadingIcon = {
@@ -296,11 +296,11 @@ fun Profile(
                     },
                     shape = RoundedCornerShape(12.dp),
                     colors = TextFieldDefaults.colors(
-                        focusedTextColor = Color.Black,
-                        unfocusedTextColor = Color.Black,
-                        focusedContainerColor = Color.White,
-                        unfocusedContainerColor = Color.White,
-                        focusedLabelColor = Color(0xFF7F48D7),
+                        focusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
+                        focusedContainerColor = MaterialTheme.colorScheme.background,
+                        unfocusedContainerColor = MaterialTheme.colorScheme.background,
+                        focusedLabelColor = MaterialTheme.colorScheme.primary,
                         unfocusedLabelColor = Color.Gray
                     )
                 )
@@ -315,15 +315,15 @@ fun Profile(
                     onDismissRequest = { expanded = false },
                     modifier = Modifier
                         .width(250.dp)
-                        .background(Color.White, shape = RoundedCornerShape(12.dp))
-                        .border(1.dp, Color(0xFF7F48D7), RoundedCornerShape(12.dp))
+                        .background(color = MaterialTheme.colorScheme.background, shape = RoundedCornerShape(12.dp))
+                        .border(1.dp, color = MaterialTheme.colorScheme.primary, RoundedCornerShape(12.dp))
                 ) {
                     languages.forEach { language ->
                         DropdownMenuItem(
                             text = {
                                 Text(
                                     text = language,
-                                    color = if (language == selectedLanguage) Color(0xFF7F48D7) else Color.Black,
+                                    color = if (language == selectedLanguage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,
                                     fontWeight = if (language == selectedLanguage) FontWeight.Bold else FontWeight.Normal
                                 )
                             },
@@ -403,7 +403,7 @@ fun Profile(
                     .padding(vertical = 16.dp)
                     .height(50.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7F48D7))
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Text("Save", color = Color.White, fontWeight = FontWeight.Bold)
             }

@@ -71,6 +71,4 @@ dependencies {
     implementation(libs.androidx.navigation.compose.vlatest)
     implementation(libs.androidx.foundation)
 
-
-
 }

@@ -27,10 +27,12 @@ playServicesAuthVersion = "20.7.0"
 playServicesIdentity = "20.1.0"
 
 [libraries]
+accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistPager" }
 accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "accompanistPager" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 androidx-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
+androidx-navigation-animation = { module = "androidx.navigation:navigation-animation", version.ref = "navigationComposeVersion" }
 androidx-navigation-compose-v277 = { module = "androidx.navigation:navigation-compose", version.ref = "navigationComposeVersion" }
 androidx-navigation-compose-vlatest = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigationCompose" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }

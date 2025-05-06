@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
@@ -38,9 +36,11 @@ fun AccountSettings(
     themeViewModel: ThemeViewModel
 ) {
     val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
+    var showLogoutDialog by remember { mutableStateOf(false) }
+
 
     Scaffold(
-        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.1f),
+        containerColor = MaterialTheme.colorScheme.onPrimary,
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
@@ -66,7 +66,7 @@ fun AccountSettings(
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                // Header Section
+                // Header
                 Text(
                     text = "Preferences",
                     style = MaterialTheme.typography.titleMedium,
@@ -74,12 +74,11 @@ fun AccountSettings(
                     modifier = Modifier.padding(start = 24.dp, top = 16.dp, bottom = 8.dp)
                 )
 
-                // Day/Night Mode
                 SettingsCard {
                     SettingsItem(
                         iconRes = if (isDarkTheme) R.drawable.ic_night else R.drawable.ic_day,
                         title = "Appearance",
-                        subtitle = if (isDarkTheme) "Dark Mode" else "Light Mode",
+                        subtitle = if (isDarkTheme) "Dark Mode"  else "Light Mode",
                         action = {
                             Switch(
                                 checked = isDarkTheme,
@@ -97,7 +96,6 @@ fun AccountSettings(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Policies Section
                 Text(
                     text = "Policies",
                     style = MaterialTheme.typography.titleMedium,
@@ -141,7 +139,6 @@ fun AccountSettings(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Account Section
                 Text(
                     text = "Account",
                     style = MaterialTheme.typography.titleMedium,
@@ -151,13 +148,14 @@ fun AccountSettings(
 
                 SettingsCard {
                     Column {
+                        val onLogoutClick = remember { { showLogoutDialog = true } }
+
                         SettingsItem(
                             iconRes = R.drawable.ic_logout,
                             title = "Log Out",
-                            iconTint = MaterialTheme.colorScheme.primary
-                        ) {
-                            authViewModel.logout()
-                        }
+                            iconTint = MaterialTheme.colorScheme.primary,
+                            onClick = onLogoutClick
+                        )
 
                         Divider(
                             modifier = Modifier.padding(horizontal = 16.dp),
@@ -168,15 +166,14 @@ fun AccountSettings(
                         SettingsItem(
                             iconRes = R.drawable.ic_delete,
                             title = "Delete Account",
-                            titleColor = MaterialTheme.colorScheme.error,
-                            iconTint = MaterialTheme.colorScheme.error
+                            titleColor = MaterialTheme.colorScheme.inversePrimary,
+                            iconTint = MaterialTheme.colorScheme.inversePrimary
                         ) {
                             /* Handle delete account */
                         }
                     }
                 }
 
-                // App Version
                 Text(
                     text = "App Version 2025.01.0",
                     style = MaterialTheme.typography.bodySmall,
@@ -187,14 +184,40 @@ fun AccountSettings(
                     textAlign = TextAlign.Center
                 )
             }
+
+            // Logout Confirmation Dialog
+            if (showLogoutDialog) {
+                AlertDialog(
+                    onDismissRequest = { showLogoutDialog = false },
+                    title = { Text("Log Out", color = MaterialTheme.colorScheme.onBackground) },
+                    text = { Text("Are you sure you want to log out?") },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                showLogoutDialog = false
+                                authViewModel.logout()
+                                navController.navigate(Screens.Login.route) {
+                                    popUpTo(Screens.AccountSettings.route) { inclusive = true }
+                                }
+                            }
+                        ) {
+                            Text("Log Out", color = MaterialTheme.colorScheme.primary)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { showLogoutDialog = false }) {
+                            Text("Cancel", color = MaterialTheme.colorScheme.onBackground)
+                        }
+                    }
+                )
+            }
         }
     }
 }
 
+// Card Wrapper
 @Composable
-private fun SettingsCard(
-    content: @Composable ColumnScope.() -> Unit
-) {
+private fun SettingsCard(content: @Composable ColumnScope.() -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -210,12 +233,13 @@ private fun SettingsCard(
     }
 }
 
+// Settings Item UI
 @Composable
 fun SettingsItem(
     iconRes: Int,
     title: String,
     subtitle: String? = null,
-    titleColor: Color = MaterialTheme.colorScheme.onSurface,
+    titleColor: Color = MaterialTheme.colorScheme.onBackground,
     iconTint: Color = MaterialTheme.colorScheme.primary,
     onClick: (() -> Unit)? = null,
     action: @Composable (() -> Unit)? = null
@@ -247,27 +271,28 @@ fun SettingsItem(
             subtitle?.let {
                 Text(
                     text = it,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                    color = MaterialTheme.colorScheme.onTertiary,
                     fontSize = 14.sp,
-                    style = MaterialTheme.typography.bodyMedium
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.offset(y = 1.dp) // 👈 Move it 1dp down
                 )
             }
         }
 
-        if (action != null) {
-            action()
-        } else if (onClick != null) {
+        action?.invoke() ?: if (onClick != null) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_chevron_right),
                 contentDescription = "Navigate",
                 tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
                 modifier = Modifier.size(20.dp)
             )
+        } else {
+
         }
     }
 }
 
-// Helper extension for no ripple clickable
+// No Ripple Clickable Modifier
 fun Modifier.noRippleClickable(onClick: () -> Unit): Modifier = composed {
     clickable(
         interactionSource = remember { MutableInteractionSource() },

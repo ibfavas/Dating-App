@@ -52,11 +52,11 @@ fun LoginScreen(
         authState.user?.let { user ->
             if (genderSelectionRequired) {
                 navController.navigate(Screens.SelectGender.route) {
-                    popUpTo(Screens.Login.route) { inclusive = true }
+                    popUpTo(0)
                 }
             } else {
                 navController.navigate(Screens.Home.route) {
-                    popUpTo(Screens.Login.route) { inclusive = true }
+                    popUpTo(0)
                 }
             }
         }
