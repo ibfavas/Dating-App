@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.fyndapp.fynd.other.BottomNavItem
 import com.fyndapp.fynd.other.Screens
-import com.fyndapp.fynd.pages.BottomNavItem
 import com.fyndapp.fynd.pages.noRippleClickable
 
 @Composable
@@ -54,7 +54,7 @@ fun BottomNavigationBar(
                     spotColor = Color(0x33C490D7)
                 )
                 .background(
-                    color = MaterialTheme.colorScheme.onBackground,
+                    color = MaterialTheme.colorScheme.onSecondary,
                     shape = RoundedCornerShape(50)
                 )
                 .fillMaxWidth()
