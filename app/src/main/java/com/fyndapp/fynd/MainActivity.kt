@@ -11,6 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.core.app.ActivityCompat.finishAffinity
+import androidx.navigation.compose.rememberNavController
+import com.fyndapp.fynd.pages.HomePage
 import com.fyndapp.fynd.ui.theme.AppTheme
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestoreSettings

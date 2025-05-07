@@ -16,6 +16,8 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.fyndapp.fynd.other.Screens
 import com.fyndapp.fynd.pages.BottomNavItem
 import com.fyndapp.fynd.pages.noRippleClickable
@@ -28,12 +30,14 @@ fun BottomNavigationBar(
 ) {
     val items = remember {
         listOf(
-            BottomNavItem.Home,
             BottomNavItem.Profile,
+            BottomNavItem.Home,
             BottomNavItem.Settings,
-            BottomNavItem.ContactUs
         )
     }
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     Box(
         modifier = modifier
@@ -59,18 +63,21 @@ fun BottomNavigationBar(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            items.forEachIndexed { index, item ->
-                val isSelected = item.screen == currentScreen
+            items.forEach { item ->
+                val isSelected = currentRoute == item.screen.route
                 NavigationIcon(
                     item = item,
                     isSelected = isSelected,
                     onClick = {
-                        if (!isSelected) {
+                        if (currentRoute != item.screen.route) {
+                            // Pop up to the start destination to avoid building a large stack
                             navController.navigate(item.screen.route) {
-                                popUpTo(navController.graph.startDestinationId) {
+                                popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true
                                 }
+                                // Avoid multiple copies of the same destination when reselecting the same item
                                 launchSingleTop = true
+                                // Restore state when reselecting a previously selected item
                                 restoreState = true
                             }
                         }

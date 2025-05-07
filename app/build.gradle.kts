@@ -70,5 +70,6 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.androidx.navigation.compose.vlatest)
     implementation(libs.androidx.foundation)
+    implementation(libs.androidx.appcompat)
 
 }

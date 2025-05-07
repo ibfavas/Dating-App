@@ -16,7 +16,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.fyndapp.fynd.other.Screens
 import com.fyndapp.fynd.pages.AccountSettings
-import com.fyndapp.fynd.pages.ContactUs
 import com.fyndapp.fynd.pages.HomePage
 import com.fyndapp.fynd.pages.Profile
 import com.fyndapp.fynd.ui.SplashScreen
@@ -42,7 +41,6 @@ fun AppNavigation(
         addHomeScreen(navController, authViewModel)
         addProfileScreen(navController, authViewModel)
         addAccountSettingsScreen(navController, authViewModel, themeViewModel)
-        addContactUsScreen(navController, authViewModel)
     }
 }
 
@@ -154,27 +152,6 @@ private fun NavGraphBuilder.addAccountSettingsScreen(
             navController = navController,
             authViewModel = authViewModel,
             themeViewModel = themeViewModel
-        )
-    }
-}
-
-private fun NavGraphBuilder.addContactUsScreen(
-    navController: NavController,
-    authViewModel: AuthViewModel
-) {
-    composable(
-        route = Screens.ContactUs.route,
-        enterTransition = {
-            fadeIn(animationSpec = tween(500))
-        },
-        exitTransition = {
-            fadeOut(animationSpec = tween(500))
-        }
-    ) {
-        ContactUs(
-            modifier = Modifier,
-            navController = navController,
-            authViewModel = authViewModel
         )
     }
 }

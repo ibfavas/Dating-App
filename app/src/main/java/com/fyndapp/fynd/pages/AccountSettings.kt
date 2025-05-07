@@ -1,6 +1,9 @@
 package com.fyndapp.fynd.pages
 
+import android.app.Activity
 import android.os.Build
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -9,22 +12,26 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.fyndapp.fynd.AuthViewModel
 import com.fyndapp.fynd.BottomNavigationBar
 import com.fyndapp.fynd.ThemeViewModel
+import com.fyndapp.fynd.cache.SettingsCache
 import com.fyndapp.fynd.other.Screens
 import com.fyndapp.fynd.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,9 +42,14 @@ fun AccountSettings(
     authViewModel: AuthViewModel,
     themeViewModel: ThemeViewModel
 ) {
+    val context = LocalContext.current
     val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
     var showLogoutDialog by remember { mutableStateOf(false) }
+    var doubleBackToExitPressedOnce by remember { mutableStateOf(false) }
+    val coroutineScope = rememberCoroutineScope()
 
+    // Load settings from cache
+    SettingsCache.loadFromCache(context)
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.onPrimary,
@@ -78,11 +90,14 @@ fun AccountSettings(
                     SettingsItem(
                         iconRes = if (isDarkTheme) R.drawable.ic_night else R.drawable.ic_day,
                         title = "Appearance",
-                        subtitle = if (isDarkTheme) "Dark Mode"  else "Light Mode",
+                        subtitle = if (isDarkTheme) "Dark Mode" else "Light Mode",
                         action = {
                             Switch(
                                 checked = isDarkTheme,
-                                onCheckedChange = { themeViewModel.toggleTheme() },
+                                onCheckedChange = { checked ->
+                                    themeViewModel.toggleTheme()
+                                    SettingsCache.saveToCache(context, checked)
+                                },
                                 colors = SwitchDefaults.colors(
                                     checkedThumbColor = MaterialTheme.colorScheme.primary,
                                     checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
@@ -210,6 +225,20 @@ fun AccountSettings(
                         }
                     }
                 )
+            }
+        }
+    }
+    BackHandler {
+        if (doubleBackToExitPressedOnce) {
+            (context as? Activity)?.finishAffinity()
+        } else {
+            doubleBackToExitPressedOnce = true
+            Toast.makeText(context, "Press back again to exit", Toast.LENGTH_SHORT).show()
+
+            // Reset the flag after 2 seconds using CoroutineScope
+            coroutineScope.launch {
+                delay(2000L)
+                doubleBackToExitPressedOnce = false
             }
         }
     }

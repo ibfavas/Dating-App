@@ -7,5 +7,4 @@ sealed class Screens(val route: String) {
     object Home : Screens("home")
     object Profile : Screens("profile")
     object AccountSettings : Screens("acc settings")
-    object ContactUs : Screens("contactus")
 }

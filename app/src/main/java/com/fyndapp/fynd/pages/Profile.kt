@@ -1,8 +1,9 @@
-// com.fyndapp.fynd.pages.Profile
 package com.fyndapp.fynd.pages
 
+import android.app.Activity
 import android.os.Build
 import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.fyndapp.fynd.BottomNavigationBar
 import com.fyndapp.fynd.R
 import com.fyndapp.fynd.AuthViewModel
@@ -32,6 +34,7 @@ import com.fyndapp.fynd.cache.ProfileCache
 import com.fyndapp.fynd.other.Screens
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
@@ -46,6 +49,7 @@ fun Profile(
     val user = authState.user
     val coroutineScope = rememberCoroutineScope()
     val context = LocalContext.current
+    var doubleBackToExitPressedOnce by remember { mutableStateOf(false) }
 
     // Load from cache first
     ProfileCache.loadFromCache(context)
@@ -406,6 +410,20 @@ fun Profile(
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Text("Save", color = Color.White, fontWeight = FontWeight.Bold)
+            }
+        }
+    }
+    BackHandler {
+        if (doubleBackToExitPressedOnce) {
+            (context as? Activity)?.finishAffinity()
+        } else {
+            doubleBackToExitPressedOnce = true
+            Toast.makeText(context, "Press back again to exit", Toast.LENGTH_SHORT).show()
+
+            // Reset the flag after 2 seconds using CoroutineScope
+            coroutineScope.launch {
+                delay(2000L)
+                doubleBackToExitPressedOnce = false
             }
         }
     }
