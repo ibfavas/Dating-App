@@ -157,13 +157,13 @@ fun HomePage(
                         Text(
                             text = "120", // Replace with actual coin count from state
                             style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onBackground
+                            color = Color.White
                         )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background,
-                    titleContentColor = MaterialTheme.colorScheme.onBackground
+                    containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                    titleContentColor = Color.White
                 )
             )
         },
@@ -373,7 +373,7 @@ fun SwipeableUserCard(
                         Icon(
                             painter = painterResource(R.drawable.ic_call),
                             contentDescription = "Call",
-                            tint = Color(0xFF8BEC8D),
+                            tint = MaterialTheme.colorScheme.inverseOnSurface,
                             modifier = Modifier.size(25.dp)
                         )
                     }
@@ -386,7 +386,7 @@ fun SwipeableUserCard(
                         Icon(
                             painter = painterResource(R.drawable.ic_chat),
                             contentDescription = "Chat",
-                            tint = MaterialTheme.colorScheme.inverseSurface,
+                            tint = MaterialTheme.colorScheme.inverseOnSurface,
                             modifier = Modifier.size(25.dp)
                         )
                     }
@@ -399,7 +399,7 @@ fun SwipeableUserCard(
                         Icon(
                             painter = painterResource(R.drawable.ic_videocall),
                             contentDescription = "Video Call",
-                            tint = Color(0xFFBB86FC),
+                            tint = MaterialTheme.colorScheme.inverseOnSurface,
                             modifier = Modifier.size(25.dp)
                         )
                     }

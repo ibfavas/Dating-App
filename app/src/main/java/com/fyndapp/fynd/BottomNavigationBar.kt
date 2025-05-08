@@ -42,25 +42,23 @@ fun BottomNavigationBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp, vertical = 12.dp)
-            .height(64.dp)
+            .height(72.dp)
     ) {
+        // Top border
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(Color.LightGray.copy(alpha = 0.2f))
+                .align(Alignment.TopCenter)
+        )
+
         Row(
             modifier = Modifier
-                .shadow(
-                    elevation = 10.dp,
-                    shape = RoundedCornerShape(50),
-                    ambientColor = Color(0x33000000),
-                    spotColor = Color(0x33C490D7)
-                )
-                .background(
-                    color = MaterialTheme.colorScheme.onBackground,
-                    shape = RoundedCornerShape(50)
-                )
                 .fillMaxWidth()
-                .padding(horizontal = 28.dp)
-                .height(64.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
+                .height(72.dp)
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
             items.forEach { item ->
@@ -70,14 +68,11 @@ fun BottomNavigationBar(
                     isSelected = isSelected,
                     onClick = {
                         if (currentRoute != item.screen.route) {
-                            // Pop up to the start destination to avoid building a large stack
                             navController.navigate(item.screen.route) {
                                 popUpTo(navController.graph.findStartDestination().id) {
                                     saveState = true
                                 }
-                                // Avoid multiple copies of the same destination when reselecting the same item
                                 launchSingleTop = true
-                                // Restore state when reselecting a previously selected item
                                 restoreState = true
                             }
                         }
@@ -94,27 +89,28 @@ private fun NavigationIcon(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    Box(
-        contentAlignment = Alignment.Center,
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
         modifier = Modifier
-            .size(48.dp)
+            .height(72.dp)
+            .width(64.dp)
             .noRippleClickable(onClick = onClick)
     ) {
-        Box(
-            modifier = Modifier
-                .size(40.dp)
-                .background(
-                    if (isSelected) Color.White.copy(alpha = 0.2f) else Color.Transparent,
-                    CircleShape
-                ),
-            contentAlignment = Alignment.Center
-        ) {
-            Icon(
-                imageVector = item.icon,
-                contentDescription = item.title,
-                tint = if (isSelected) MaterialTheme.colorScheme.background
-                else MaterialTheme.colorScheme.background,
-                modifier = Modifier.size(24.dp)
+        Icon(
+            imageVector = item.icon,
+            contentDescription = item.title,
+            tint = if (isSelected) MaterialTheme.colorScheme.inverseOnSurface else MaterialTheme.colorScheme.tertiaryContainer,
+            modifier = Modifier.size(24.dp)
+        )
+
+        Spacer(modifier = Modifier.height(4.dp))
+
+        if (isSelected) {
+            Box(
+                modifier = Modifier
+                    .size(4.dp)
+                    .background(MaterialTheme.colorScheme.inverseOnSurface, CircleShape)
             )
         }
     }

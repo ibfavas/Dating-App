@@ -82,7 +82,7 @@ fun AccountSettings(
                 Text(
                     text = "Preferences",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.inverseOnSurface,
                     modifier = Modifier.padding(start = 24.dp, top = 16.dp, bottom = 8.dp)
                 )
 
@@ -99,9 +99,9 @@ fun AccountSettings(
                                     SettingsCache.saveToCache(context, checked)
                                 },
                                 colors = SwitchDefaults.colors(
-                                    checkedThumbColor = MaterialTheme.colorScheme.primary,
+                                    checkedThumbColor = MaterialTheme.colorScheme.inverseOnSurface,
                                     checkedTrackColor = MaterialTheme.colorScheme.primaryContainer,
-                                    uncheckedThumbColor = MaterialTheme.colorScheme.secondary,
+                                    uncheckedThumbColor = MaterialTheme.colorScheme.inverseOnSurface,
                                     uncheckedTrackColor = MaterialTheme.colorScheme.secondaryContainer,
                                 )
                             )
@@ -114,7 +114,7 @@ fun AccountSettings(
                 Text(
                     text = "Policies",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.inverseOnSurface,
                     modifier = Modifier.padding(start = 24.dp, top = 8.dp, bottom = 8.dp)
                 )
 
@@ -162,7 +162,7 @@ fun AccountSettings(
                 Text(
                     text = "Account",
                     style = MaterialTheme.typography.titleMedium,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = MaterialTheme.colorScheme.inverseOnSurface,
                     modifier = Modifier.padding(start = 24.dp, top = 8.dp, bottom = 8.dp)
                 )
 
@@ -173,7 +173,7 @@ fun AccountSettings(
                         SettingsItem(
                             iconRes = R.drawable.ic_logout,
                             title = "Log Out",
-                            iconTint = MaterialTheme.colorScheme.primary,
+                            iconTint = MaterialTheme.colorScheme.inverseOnSurface,
                             onClick = onLogoutClick
                         )
 
@@ -186,8 +186,8 @@ fun AccountSettings(
                         SettingsItem(
                             iconRes = R.drawable.ic_delete,
                             title = "Delete Account",
-                            titleColor = MaterialTheme.colorScheme.inversePrimary,
-                            iconTint = MaterialTheme.colorScheme.inversePrimary
+                            titleColor = Color.Red,
+                            iconTint = Color.Red
                         ) {
                             /* Handle delete account */
                         }
@@ -274,7 +274,7 @@ fun SettingsItem(
     title: String,
     subtitle: String? = null,
     titleColor: Color = MaterialTheme.colorScheme.onBackground,
-    iconTint: Color = MaterialTheme.colorScheme.primary,
+    iconTint: Color = MaterialTheme.colorScheme.inverseOnSurface,
     onClick: (() -> Unit)? = null,
     action: @Composable (() -> Unit)? = null
 ) {

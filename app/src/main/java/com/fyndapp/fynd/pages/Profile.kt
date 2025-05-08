@@ -151,7 +151,7 @@ fun Profile(
                         .size(100.dp)
                         .clip(CircleShape)
                         .background(Color.LightGray)
-                        .border(2.dp, color = MaterialTheme.colorScheme.primary, CircleShape),
+                        .border(2.dp, color = MaterialTheme.colorScheme.inverseOnSurface, CircleShape),
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
@@ -191,7 +191,7 @@ fun Profile(
                     unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                     focusedContainerColor = MaterialTheme.colorScheme.background,
                     unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
+                    focusedLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
                     unfocusedLabelColor = Color.Gray
                 )
             )
@@ -213,7 +213,7 @@ fun Profile(
                     unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                     focusedContainerColor = MaterialTheme.colorScheme.background,
                     unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
+                    focusedLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
                     unfocusedLabelColor = Color.Gray
                 )
             )
@@ -228,7 +228,7 @@ fun Profile(
                     Icons.Default.Face,
                     contentDescription = "Gender",
                     modifier = Modifier.padding(end = 8.dp),
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = MaterialTheme.colorScheme.inverseOnSurface
                 )
 
                 Text(
@@ -243,7 +243,7 @@ fun Profile(
                         selected = gender == "Male",
                         onClick = { gender = "Male" },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = MaterialTheme.colorScheme.primary,
+                            selectedColor = MaterialTheme.colorScheme.inverseOnSurface,
                             unselectedColor = Color.Gray
                         )
                     )
@@ -253,7 +253,7 @@ fun Profile(
                         selected = gender == "Female",
                         onClick = { gender = "Female" },
                         colors = RadioButtonDefaults.colors(
-                            selectedColor = MaterialTheme.colorScheme.primary,
+                            selectedColor = MaterialTheme.colorScheme.inverseOnSurface,
                             unselectedColor = Color.Gray
                         )
                     )
@@ -278,7 +278,7 @@ fun Profile(
                     unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                     focusedContainerColor = MaterialTheme.colorScheme.background,
                     unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                    focusedLabelColor = MaterialTheme.colorScheme.primary,
+                    focusedLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
                     unfocusedLabelColor = Color.Gray
                 )
             )
@@ -304,7 +304,7 @@ fun Profile(
                         unfocusedTextColor = MaterialTheme.colorScheme.onBackground,
                         focusedContainerColor = MaterialTheme.colorScheme.background,
                         unfocusedContainerColor = MaterialTheme.colorScheme.background,
-                        focusedLabelColor = MaterialTheme.colorScheme.primary,
+                        focusedLabelColor = MaterialTheme.colorScheme.inverseOnSurface,
                         unfocusedLabelColor = Color.Gray
                     )
                 )
@@ -320,14 +320,14 @@ fun Profile(
                     modifier = Modifier
                         .width(250.dp)
                         .background(color = MaterialTheme.colorScheme.background, shape = RoundedCornerShape(12.dp))
-                        .border(1.dp, color = MaterialTheme.colorScheme.primary, RoundedCornerShape(12.dp))
+                        .border(1.dp, color = MaterialTheme.colorScheme.inverseOnSurface, RoundedCornerShape(12.dp))
                 ) {
                     languages.forEach { language ->
                         DropdownMenuItem(
                             text = {
                                 Text(
                                     text = language,
-                                    color = if (language == selectedLanguage) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onBackground,
+                                    color = if (language == selectedLanguage) MaterialTheme.colorScheme.inverseOnSurface else MaterialTheme.colorScheme.onBackground,
                                     fontWeight = if (language == selectedLanguage) FontWeight.Bold else FontWeight.Normal
                                 )
                             },
@@ -407,7 +407,7 @@ fun Profile(
                     .padding(vertical = 16.dp)
                     .height(50.dp),
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface)
             ) {
                 Text("Save", color = Color.White, fontWeight = FontWeight.Bold)
             }

@@ -19,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.withStyle
@@ -125,7 +127,8 @@ fun LoginScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp)
+                        .height(50.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface)
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -139,7 +142,7 @@ fun LoginScreen(
                                 .padding(end = 8.dp)
                         )
                         Spacer(modifier = Modifier.width(1.dp))
-                        Text(text = "Sign in with Google")
+                        Text(text = "Sign in with Google", color = Color.White)
                     }
                 }
 
@@ -153,7 +156,7 @@ fun LoginScreen(
                     pushStringAnnotation(tag = "TERMS", annotation = "terms")
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colorScheme.inverseOnSurface,
                             textDecoration = TextDecoration.Underline,
                             fontWeight = FontWeight.SemiBold
                         )
@@ -167,7 +170,7 @@ fun LoginScreen(
                     pushStringAnnotation(tag = "PRIVACY", annotation = "privacy")
                     withStyle(
                         style = SpanStyle(
-                            color = MaterialTheme.colorScheme.primary,
+                            color = MaterialTheme.colorScheme.inverseOnSurface,
                             textDecoration = TextDecoration.Underline,
                             fontWeight = FontWeight.SemiBold
                         )

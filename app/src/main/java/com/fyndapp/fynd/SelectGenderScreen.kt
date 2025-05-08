@@ -106,7 +106,11 @@ fun SelectGenderScreen(
                     .fillMaxWidth()
                     .height(60.dp),
                 textStyle = TextStyle(color = Color.Black),
-                shape = RoundedCornerShape(16.dp)
+                shape = RoundedCornerShape(16.dp),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedBorderColor = MaterialTheme.colorScheme.inverseOnSurface,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.inverseOnSurface
+                    )
             )
 
             Spacer(modifier = Modifier.height(16.dp))
@@ -118,7 +122,7 @@ fun SelectGenderScreen(
                     .height(60.dp)
                     .border(
                         width = 2.dp,
-                        color = Color(0xFF7F48D7),
+                        color = MaterialTheme.colorScheme.inverseOnSurface,
                         shape = RoundedCornerShape(16.dp)
                     )
                     .clickable { datePicker.show() },
@@ -208,7 +212,7 @@ fun SelectGenderScreen(
                     .height(52.dp),
                 enabled = !isLoading && name.isNotBlank() && dob.isNotBlank() && selectedGender != null,
                 shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF7F48D7))
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.inverseOnSurface)
             ) {
                 if (isLoading) {
                     CircularProgressIndicator(color = Color.LightGray)
@@ -226,8 +230,8 @@ fun GenderBox(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val borderColor = if (isSelected) Color(0xFF7F48D7) else Color.Black
-    val textColor = if (isSelected) Color(0xFF7F48D7) else Color.Black
+    val borderColor = if (isSelected) MaterialTheme.colorScheme.inverseOnSurface else MaterialTheme.colorScheme.onBackground
+    val textColor = if (isSelected) MaterialTheme.colorScheme.inverseOnSurface else MaterialTheme.colorScheme.onBackground
 
     Box(
         modifier = Modifier
