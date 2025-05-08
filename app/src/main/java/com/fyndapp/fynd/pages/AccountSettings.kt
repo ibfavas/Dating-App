@@ -149,6 +149,11 @@ fun AccountSettings(
                             title = "Blocked Accounts",
                             onClick = { /* Handle blocked accounts click */ }
                         )
+                        SettingsItem(
+                            iconRes = R.drawable.ic_contactus,
+                            title = "Contact Us",
+                            onClick = { /* Handle blocked accounts click */ }
+                        )
                     }
                 }
 
@@ -300,10 +305,10 @@ fun SettingsItem(
             subtitle?.let {
                 Text(
                     text = it,
-                    color = MaterialTheme.colorScheme.onTertiary,
+                    color = MaterialTheme.colorScheme.inverseSurface,
                     fontSize = 14.sp,
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.offset(y = 1.dp) // 👈 Move it 1dp down
+                    modifier = Modifier.offset(y = 2.dp) // 👈 Move it 1dp down
                 )
             }
         }

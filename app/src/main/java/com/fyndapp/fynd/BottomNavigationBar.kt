@@ -54,7 +54,7 @@ fun BottomNavigationBar(
                     spotColor = Color(0x33C490D7)
                 )
                 .background(
-                    color = MaterialTheme.colorScheme.onSecondary,
+                    color = MaterialTheme.colorScheme.onBackground,
                     shape = RoundedCornerShape(50)
                 )
                 .fillMaxWidth()

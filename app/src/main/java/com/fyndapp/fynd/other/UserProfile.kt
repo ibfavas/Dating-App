@@ -6,5 +6,6 @@ data class UserProfile(
     val name: String,
     val age: Int,
     val avatarResId: Int,
-    val language: String
+    val language: String,
+    val matchScore: Int
 )
